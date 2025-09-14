@@ -1,0 +1,16 @@
+class scoreboard;
+  mailbox #(transaction) mon2scb;
+
+  function new(mailbox #(transaction) mon2scb);
+    this.mon2scb = mon2scb;
+  endfunction
+
+  task run();
+    transaction tr;
+    forever begin
+      mon2scb.get(tr);
+      $display("[SCB] Address: %0d, Data: %0h, MISO: %b, Mode: %b",
+               tr.addr, tr.payload, tr.miso_data, tr.spi_mode);
+    end
+  endtask
+endclass

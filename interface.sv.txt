@@ -1,0 +1,21 @@
+interface spi_if;
+  logic clk;
+  logic rst;
+  logic [7:0] data_in;
+  logic [1:0] address;
+  logic data_valid;
+  logic spi_cs;
+  logic spi_sclk;
+  logic spi_mosi;             
+  logic spi_miso;             
+  logic [4:0] counter;
+  logic [1:0] addr;
+  logic [7:0] data_out;
+  logic [1:0] spi_mode;       
+  logic transfer_done;        
+
+  clocking cb @(posedge clk);
+    input spi_cs, spi_sclk, spi_miso, counter, addr, data_out, transfer_done;
+    output rst, data_in, address, data_valid, spi_mode;
+  endclocking
+endinterface

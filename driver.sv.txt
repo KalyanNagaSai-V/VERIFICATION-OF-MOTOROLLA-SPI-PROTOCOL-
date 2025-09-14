@@ -1,0 +1,24 @@
+class driver;
+  virtual spi_if vif;
+  mailbox #(transaction) mbx;
+
+  function new(virtual spi_if vif, mailbox #(transaction) mbx);
+    this.vif = vif;
+    this.mbx = mbx;
+  endfunction
+  task reset();
+    vif.rst <= 1;
+    @(posedge vif.clk);
+    vif.rst <= 0;
+    @(posedge vif.clk);
+  endtask
+
+  task run();
+    transaction tr;
+    forever begin
+      mbx.get(tr);
+      vif.data_in <= tr.data_in;
+      @(posedge vif.clk);
+    end
+ endtask
+endclass

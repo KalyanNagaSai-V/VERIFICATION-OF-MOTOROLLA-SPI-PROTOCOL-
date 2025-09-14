@@ -1,0 +1,23 @@
+class monitor;
+  virtual spi_if vif;
+  mailbox #(transaction) mon2scb;
+
+  function new(virtual spi_if vif, mailbox #(transaction) mon2scb);
+    this.vif = vif;
+    this.mon2scb = mon2scb;
+  endfunction
+
+  task run();
+    transaction tr;
+    tr = new();
+    forever begin
+      @(posedge vif.clk);
+      if (!vif.spi_cs && vif.spi_sclk) begin
+        tr.data_in = vif.data_in;
+        tr.post_randomize();
+        mon2scb.put(tr);
+        tr.display("MON");
+      end
+    end
+  endtask
+endclass

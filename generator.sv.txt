@@ -1,0 +1,19 @@
+class generator;
+  mailbox #(transaction) mbx;
+
+  function new(mailbox #(transaction) mbx);
+    this.mbx = mbx;
+  endfunction
+
+  task run();
+    transaction tr;
+    repeat (10) begin
+      tr = new();
+      assert(tr.randomize());
+      tr.spi_mode = $urandom_range(0, 3); // Random mode 0–3
+      tr.post_randomize();
+      mbx.put(tr);
+      tr.display("GEN");
+    end
+  endtask
+endclass

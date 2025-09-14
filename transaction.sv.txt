@@ -1,0 +1,17 @@
+class transaction;
+  rand bit [7:0] data_in;
+  rand bit [1:0] spi_mode;         // New
+  bit [1:0] addr;
+  bit [5:0] payload;
+  rand bit [7:0] miso_data;             // New: Captured MISO data (optional)
+
+  function void post_randomize();
+    addr = data_in[7:6];
+    payload = data_in[5:0];
+  endfunction
+
+  function void display(string tag="");
+    $display("[%0s] DATA_IN = %b, ADDR = %0d, PAYLOAD = %0h, MISO = %b, MODE = %b",
+             tag, data_in, addr, payload, miso_data, spi_mode);
+  endfunction
+endclass
