@@ -25,22 +25,6 @@ Stimulus Generation: Randomized and directed test scenarios for corner-case test
 
 Waveform Analysis: Functional coverage and waveform dump for debugging.
 
-## Directory structure 
-
-Motorola_SPI_Verification/
-│
-├── rtl/                   # RTL source files (if any)
-├── tb/                    # Testbench files
-│   ├── agent/
-│   ├── driver/
-│   ├── monitor/
-│   ├── sequencer/
-│   ├── scoreboard/
-│   └── tests/
-├── sim_scripts/           # Simulation scripts (e.g., Makefile, run scripts)
-├── docs/                  # Project documentation
-└── README.md              # Project overview and instructions
-
 ## Prerequisites
 
 Simulator: Synopsys VCS, Cadence Xcelium, or ModelSim/QuestaSim
